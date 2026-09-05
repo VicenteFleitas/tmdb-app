@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-
+import { memo } from 'react';
 import { colors, radii, spacing } from '../../../../app/theme';
 import { AppText } from '../../../../shared/components/AppText';
 import { Movie } from '../../domain/entities/Movie';
@@ -12,7 +12,7 @@ type MovieCardProps = {
   movie: Movie;
 };
 
-export function MovieCard({ movie }: MovieCardProps) {
+export const MovieCard = memo(function MovieCard({ movie }: MovieCardProps) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
   return (
@@ -30,6 +30,7 @@ export function MovieCard({ movie }: MovieCardProps) {
             uri: `https://image.tmdb.org/t/p/w342${movie.posterPath}`,
           }}
           style={styles.poster}
+          resizeMode="cover"
         />
       ) : (
         <View style={styles.placeholder}>
@@ -48,7 +49,7 @@ export function MovieCard({ movie }: MovieCardProps) {
       </View>
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   card: {

@@ -10,7 +10,6 @@ Aplicación móvil desarrollada con React Native CLI y TypeScript.
 - Axios
 - TanStack Query para datos remotos, cache y estados de las consultas
 - Redux Toolkit para estado global de la aplicación
-- React Hook Form y Zod para formularios y validación
 
 ## Arquitectura
 
@@ -26,8 +25,7 @@ src/
 │   ├── store/        # Redux Toolkit
 │   └── theme/        # Tema y estilos globales
 ├── features/
-│   ├── movies/       # Listado de películas populares
-│   ├── search/       # Búsqueda de películas
+│   ├── movies/       # Listado y búsqueda de películas
 │   └── movie-detail/ # Detalle de una película
 └── shared/
     ├── api/          # Cliente Axios y configuración común
