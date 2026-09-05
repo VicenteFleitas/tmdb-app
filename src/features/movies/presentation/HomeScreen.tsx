@@ -6,7 +6,8 @@ import { MovieCard } from './components/MovieCard';
 import { usePopularMovies } from './hooks/usePopularMovies';
 
 export function HomeScreen() {
-  const { data: movies = [], isLoading } = usePopularMovies();
+  const { data: movies = [], isLoading, isError, error } = usePopularMovies();
+
   if (isLoading) {
     return (
       <View style={styles.centered}>
@@ -15,6 +16,20 @@ export function HomeScreen() {
       </View>
     );
   }
+
+  if (isError) {
+    return (
+      <View style={styles.centered}>
+        <AppText variant="heading">No pudimos cargar las películas</AppText>
+        <AppText color="mutedText">
+          {error instanceof Error
+            ? error.message
+            : 'Ocurrió un error inesperado.'}
+        </AppText>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <AppText variant="title">Películas populares</AppText>
