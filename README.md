@@ -16,8 +16,36 @@ Aplicación móvil desarrollada con React Native CLI y TypeScript.
 
 El proyecto utiliza una arquitectura **Feature-Based Clean Architecture**.
 Cada funcionalidad mantiene separadas sus capas de presentación, dominio y
-datos. Las funcionalidades principales serán películas, búsqueda y detalle de
-película.
+datos.
+
+```text
+src/
+├── app/
+│   ├── navigation/   # Rutas y navegación
+│   ├── providers/    # Proveedores globales
+│   ├── store/        # Redux Toolkit
+│   └── theme/        # Tema y estilos globales
+├── features/
+│   ├── movies/       # Listado de películas populares
+│   ├── search/       # Búsqueda de películas
+│   └── movie-detail/ # Detalle de una película
+└── shared/
+    ├── api/          # Cliente Axios y configuración común
+    ├── components/   # Componentes reutilizables
+    ├── hooks/        # Hooks compartidos
+    ├── types/        # Tipos comunes
+    └── utils/        # Utilidades
+```
+
+Cada feature se divide en:
+
+- `data`: llamadas a API, DTOs, mappers y repositorios concretos.
+- `domain`: entidades, contratos y casos de uso de negocio.
+- `presentation`: pantallas, componentes y hooks de UI.
+
+TanStack Query gestiona los datos remotos de TMDB, incluyendo cache, loading y
+errores. Redux Toolkit gestiona el estado global de la aplicación y la UI. No
+se duplican los datos remotos de TMDB dentro de Redux.
 
 ## Requisitos para Android
 
