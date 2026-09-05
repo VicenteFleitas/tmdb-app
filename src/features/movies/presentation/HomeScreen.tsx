@@ -12,9 +12,12 @@ import { setSearchQuery } from '../../../app/store/uiSlice';
 import { SearchBar } from './components/SearchBar';
 
 export function HomeScreen() {
-  const { data: movies = [], isLoading, isError, error } = usePopularMovies();
   const dispatch = useDispatch();
   const searchQuery = useSelector((state: RootState) => state.ui.searchQuery);
+  const { data: movies = [], isLoading, isError, error } = usePopularMovies();
+  const filteredMovies = movies.filter(movie =>
+    movie.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   if (isLoading) {
     return (
@@ -62,12 +65,23 @@ export function HomeScreen() {
         onChangeText={text => dispatch(setSearchQuery(text))}
       />
 
-      <FlatList
-        data={movies}
-        keyExtractor={movie => String(movie.id)}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => <MovieCard movie={item} />}
-      />
+      {filteredMovies.length > 0 && (
+        <FlatList
+          data={filteredMovies}
+          keyExtractor={movie => String(movie.id)}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => <MovieCard movie={item} />}
+        />
+      )}
+
+      {searchQuery.trim() && filteredMovies.length === 0 && (
+        <View style={styles.noResults}>
+          <AppText variant="heading">No encontramos resultados</AppText>
+          <AppText color="mutedText">
+            Probá con otro nombre de película.
+          </AppText>
+        </View>
+      )}
     </View>
   );
 }
@@ -90,5 +104,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: spacing.sm,
     backgroundColor: colors.background,
+  },
+  noResults: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
   },
 });
