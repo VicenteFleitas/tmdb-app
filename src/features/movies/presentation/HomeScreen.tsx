@@ -5,8 +5,16 @@ import { AppText } from '../../../shared/components/AppText';
 import { MovieCard } from './components/MovieCard';
 import { usePopularMovies } from './hooks/usePopularMovies';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState } from '../../../app/store/store';
+import { setSearchQuery } from '../../../app/store/uiSlice';
+import { SearchBar } from './components/SearchBar';
+
 export function HomeScreen() {
   const { data: movies = [], isLoading, isError, error } = usePopularMovies();
+  const dispatch = useDispatch();
+  const searchQuery = useSelector((state: RootState) => state.ui.searchQuery);
 
   if (isLoading) {
     return (
@@ -48,6 +56,11 @@ export function HomeScreen() {
       <AppText variant="body" color="mutedText">
         Descubrí las películas más populares.
       </AppText>
+
+      <SearchBar
+        value={searchQuery}
+        onChangeText={text => dispatch(setSearchQuery(text))}
+      />
 
       <FlatList
         data={movies}
