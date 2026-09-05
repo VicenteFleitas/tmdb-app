@@ -10,7 +10,6 @@ Aplicación móvil desarrollada con React Native CLI y TypeScript.
 - Axios
 - TanStack Query para datos remotos, cache y estados de las consultas
 - Redux Toolkit para estado global de la aplicación
-- React Hook Form y Zod para formularios y validación
 
 ## Arquitectura
 
