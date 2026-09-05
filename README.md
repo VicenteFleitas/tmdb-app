@@ -5,9 +5,9 @@ Aplicación móvil desarrollada con React Native CLI y TypeScript.
 ## Requisitos para Android
 
 - macOS con Android Studio instalado.
-- Android SDK instalado en:
+- Android SDK instalado en la ruta estándar:
 
-  `/Users/vicentefleitas/Library/Android/sdk`
+  `$HOME/Library/Android/sdk`
 
 - Un emulador Android creado desde Android Studio → **Virtual Device Manager**.
 - Node.js y npm.
@@ -24,7 +24,7 @@ npm install
 Si Gradle no encuentra el Android SDK, crear el archivo local `android/local.properties`:
 
 ```sh
-printf 'sdk.dir=/Users/vicentefleitas/Library/Android/sdk\n' > android/local.properties
+printf 'sdk.dir=%s\n' "$HOME/Library/Android/sdk" > android/local.properties
 ```
 
 Este archivo es local y no debe subirse a GitHub.
