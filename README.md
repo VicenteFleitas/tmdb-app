@@ -47,6 +47,15 @@ TanStack Query gestiona los datos remotos de TMDB, incluyendo cache, loading y
 errores. Redux Toolkit gestiona el estado global de la aplicación y la UI. No
 se duplican los datos remotos de TMDB dentro de Redux.
 
+La navegación actual contiene:
+
+```text
+HomeScreen → MovieDetailScreen
+```
+
+La búsqueda se incorporará dentro de `HomeScreen` mediante una barra de
+búsqueda; no se utilizará una pantalla independiente para buscar.
+
 ## Requisitos para Android
 
 - macOS con Android Studio instalado.
@@ -105,6 +114,12 @@ También se puede iniciar Metro automáticamente con:
 npm run android
 ```
 
+Si Metro ya está ejecutándose en otra terminal, usar:
+
+```sh
+npm run android -- --no-packager
+```
+
 ## Comandos útiles
 
 ```sh
@@ -136,6 +151,12 @@ Abrir el simulador de iPhone y ejecutar:
 
 ```sh
 npm run ios
+```
+
+Si Metro ya está ejecutándose en otra terminal, usar:
+
+```sh
+npm run ios -- --no-packager
 ```
 
 Si se modifican dependencias nativas, volver a ejecutar `pod install`.
