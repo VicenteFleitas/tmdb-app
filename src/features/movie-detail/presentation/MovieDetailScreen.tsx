@@ -3,13 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { colors, spacing } from '../../../app/theme';
 import { AppText } from '../../../shared/components/AppText';
 
-export function HomeScreen() {
+export function MovieDetailScreen() {
   return (
     <View style={styles.container}>
-      <AppText variant="title">Películas populares</AppText>
-      <AppText variant="body" color="mutedText">
-        Descubrí las películas más populares.
-      </AppText>
+      <AppText variant="title">Detalle de película</AppText>
+      <AppText color="mutedText">Información detallada de la película.</AppText>
     </View>
   );
 }

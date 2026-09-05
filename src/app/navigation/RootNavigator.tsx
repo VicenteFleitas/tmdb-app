@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { MovieDetailScreen } from '../../features/movies/presentation/MovieDetailScreen';
+import { MovieDetailScreen } from '../../features/movie-detail/presentation/MovieDetailScreen';
 import { HomeScreen } from '../../features/movies/presentation/HomeScreen';
 import { RootStackParamList } from './types';
 
