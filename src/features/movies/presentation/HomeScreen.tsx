@@ -1,19 +1,15 @@
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-
-import { colors, spacing } from '../../../app/theme';
-import { AppText } from '../../../shared/components/AppText';
-import { MovieCard } from './components/MovieCard';
-import { usePopularMovies } from './hooks/usePopularMovies';
-
 import { useDispatch, useSelector } from 'react-redux';
 
+import { colors, spacing } from '../../../app/theme';
 import { RootState } from '../../../app/store/store';
 import { setSearchQuery } from '../../../app/store/uiSlice';
+import { AppText } from '../../../shared/components/AppText';
+import { MovieCard } from './components/MovieCard';
 import { SearchBar } from './components/SearchBar';
-
-import { useSearchMovies } from './hooks/useSearchMovies';
-
 import { useDebouncedSearch } from './hooks/useDebouncedSearch';
+import { usePopularMovies } from './hooks/usePopularMovies';
+import { useSearchMovies } from './hooks/useSearchMovies';
 
 export function HomeScreen() {
   const dispatch = useDispatch();
@@ -25,7 +21,7 @@ export function HomeScreen() {
   const isSearching = debouncedSearchQuery.trim().length > 0;
   const activeQuery = isSearching ? searchMoviesQuery : popularMoviesQuery;
 
-  const { data: movies = [], isLoading, isError, error } = activeQuery;
+  const { data: movies = [], isLoading, isError } = activeQuery;
 
   return (
     <View style={styles.container}>
