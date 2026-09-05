@@ -26,8 +26,7 @@ src/
 │   ├── store/        # Redux Toolkit
 │   └── theme/        # Tema y estilos globales
 ├── features/
-│   ├── movies/       # Listado de películas populares
-│   ├── search/       # Búsqueda de películas
+│   ├── movies/       # Listado y búsqueda de películas
 │   └── movie-detail/ # Detalle de una película
 └── shared/
     ├── api/          # Cliente Axios y configuración común
