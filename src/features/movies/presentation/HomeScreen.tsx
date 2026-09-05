@@ -30,6 +30,17 @@ export function HomeScreen() {
     );
   }
 
+  if (movies.length === 0) {
+    return (
+      <View style={styles.centered}>
+        <AppText variant="heading">No hay películas</AppText>
+        <AppText color="mutedText">
+          No encontramos películas para mostrar.
+        </AppText>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <AppText variant="title">Películas populares</AppText>
