@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
 import { colors, spacing } from '../../../app/theme';
 import { AppText } from '../../../shared/components/AppText';
@@ -6,8 +6,15 @@ import { MovieCard } from './components/MovieCard';
 import { usePopularMovies } from './hooks/usePopularMovies';
 
 export function HomeScreen() {
-  const { data: movies = [] } = usePopularMovies();
-
+  const { data: movies = [], isLoading } = usePopularMovies();
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator color={colors.primary} size="large" />
+        <AppText color="mutedText">Cargando películas...</AppText>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <AppText variant="title">Películas populares</AppText>
@@ -37,5 +44,12 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     paddingTop: spacing.md,
     paddingBottom: spacing.xl,
+  },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.background,
   },
 });
