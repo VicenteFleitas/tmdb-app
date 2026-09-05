@@ -45,6 +45,7 @@ export function MovieDetailScreen({ route }: MovieDetailScreenProps) {
                   uri: `https://image.tmdb.org/t/p/w780${movie.posterPath}`,
                 }}
                 style={styles.poster}
+                resizeMode="cover"
               />
             )}
             <AppText variant="heading">Sinopsis</AppText>
