@@ -59,7 +59,16 @@ export function HomeScreen() {
         />
       )}
 
-      {!isLoading && !isError && searchQuery.trim() && movies.length === 0 && (
+      {!isLoading && !isError && !isSearching && movies.length === 0 && (
+        <View style={styles.noResults}>
+          <AppText variant="heading">No hay películas disponibles</AppText>
+          <AppText color="mutedText">
+            No encontramos películas populares para mostrar.
+          </AppText>
+        </View>
+      )}
+
+      {!isLoading && !isError && isSearching && movies.length === 0 && (
         <View style={styles.noResults}>
           <AppText variant="heading">No encontramos resultados</AppText>
           <AppText color="mutedText">
