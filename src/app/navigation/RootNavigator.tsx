@@ -19,7 +19,7 @@ export function RootNavigator() {
         <Stack.Screen
           name="MovieDetail"
           component={MovieDetailScreen}
-          options={{ title: 'Detalle' }}
+          options={{ title: 'Detalle', headerBackButtonDisplayMode: 'minimal' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

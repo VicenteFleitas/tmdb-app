@@ -1,16 +1,29 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 
 import { colors, radii, spacing } from '../../../../app/theme';
 import { AppText } from '../../../../shared/components/AppText';
 import { Movie } from '../../domain/entities/Movie';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { RootStackParamList } from '../../../../app/navigation/types';
 
 type MovieCardProps = {
   movie: Movie;
 };
 
 export function MovieCard({ movie }: MovieCardProps) {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate('MovieDetail', {
+          movieId: movie.id,
+        })
+      }
+    >
       {movie.posterPath ? (
         <Image
           source={{
@@ -33,7 +46,7 @@ export function MovieCard({ movie }: MovieCardProps) {
 
         <AppText color="mutedText">⭐ {movie.voteAverage.toFixed(1)}</AppText>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
