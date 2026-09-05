@@ -73,6 +73,23 @@ Desde la carpeta del proyecto:
 npm install
 ```
 
+## Configuración de TMDB
+
+La aplicación necesita un **API Read Access Token** de TMDB para consultar
+películas y detalles.
+
+1. Copiar el archivo de ejemplo:
+
+   ```sh
+   cp .env.sample .env
+   ```
+
+2. Abrir `.env` y reemplazar el valor de ejemplo:
+
+   ```env
+   TMDB_API_TOKEN=tu_token_real_de_tmdb
+   ```
+
 Si Gradle no encuentra el Android SDK, crear el archivo local `android/local.properties`:
 
 ```sh
