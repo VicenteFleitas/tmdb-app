@@ -27,7 +27,9 @@ Si Gradle no encuentra el Android SDK, crear el archivo local `android/local.pro
 printf 'sdk.dir=%s\n' "$HOME/Library/Android/sdk" > android/local.properties
 ```
 
-Este archivo es local y no debe subirse a GitHub.
+`android/local.properties` contiene la ruta del Android SDK de cada computadora.
+Como esa ruta puede cambiar entre desarrolladores, el archivo no se versiona en
+GitHub. Cada persona debe crearlo localmente si Gradle no encuentra el SDK.
 
 También se pueden configurar las variables de entorno para la sesión actual:
 
