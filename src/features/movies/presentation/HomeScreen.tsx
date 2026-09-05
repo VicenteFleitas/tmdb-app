@@ -1,45 +1,27 @@
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { colors, spacing } from '../../../app/theme';
+import { RootState } from '../../../app/store/store';
+import { setSearchQuery } from '../../../app/store/uiSlice';
 import { AppText } from '../../../shared/components/AppText';
 import { MovieCard } from './components/MovieCard';
+import { SearchBar } from './components/SearchBar';
+import { useDebouncedSearch } from './hooks/useDebouncedSearch';
 import { usePopularMovies } from './hooks/usePopularMovies';
+import { useSearchMovies } from './hooks/useSearchMovies';
 
 export function HomeScreen() {
-  const { data: movies = [], isLoading, isError, error } = usePopularMovies();
+  const dispatch = useDispatch();
+  const searchQuery = useSelector((state: RootState) => state.ui.searchQuery);
+  const debouncedSearchQuery = useDebouncedSearch(searchQuery);
+  const popularMoviesQuery = usePopularMovies();
+  const searchMoviesQuery = useSearchMovies(debouncedSearchQuery);
 
-  if (isLoading) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator color={colors.primary} size="large" />
-        <AppText color="mutedText">Cargando películas...</AppText>
-      </View>
-    );
-  }
+  const isSearching = debouncedSearchQuery.trim().length > 0;
+  const activeQuery = isSearching ? searchMoviesQuery : popularMoviesQuery;
 
-  if (isError) {
-    return (
-      <View style={styles.centered}>
-        <AppText variant="heading">No pudimos cargar las películas</AppText>
-        <AppText color="mutedText">
-          {error instanceof Error
-            ? error.message
-            : 'Ocurrió un error inesperado.'}
-        </AppText>
-      </View>
-    );
-  }
-
-  if (movies.length === 0) {
-    return (
-      <View style={styles.centered}>
-        <AppText variant="heading">No hay películas</AppText>
-        <AppText color="mutedText">
-          No encontramos películas para mostrar.
-        </AppText>
-      </View>
-    );
-  }
+  const { data: movies = [], isLoading, isError } = activeQuery;
 
   return (
     <View style={styles.container}>
@@ -49,12 +31,42 @@ export function HomeScreen() {
         Descubrí las películas más populares.
       </AppText>
 
-      <FlatList
-        data={movies}
-        keyExtractor={movie => String(movie.id)}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => <MovieCard movie={item} />}
+      <SearchBar
+        value={searchQuery}
+        onChangeText={text => dispatch(setSearchQuery(text))}
       />
+
+      {isLoading && (
+        <View style={styles.centered}>
+          <ActivityIndicator color={colors.primary} size="large" />
+          <AppText color="mutedText">Cargando películas...</AppText>
+        </View>
+      )}
+
+      {isError && (
+        <View style={styles.centered}>
+          <AppText variant="heading">No pudimos cargar las películas</AppText>
+          <AppText color="mutedText">Ocurrió un error inesperado.</AppText>
+        </View>
+      )}
+
+      {!isLoading && !isError && movies.length > 0 && (
+        <FlatList
+          data={movies}
+          keyExtractor={movie => String(movie.id)}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => <MovieCard movie={item} />}
+        />
+      )}
+
+      {!isLoading && !isError && searchQuery.trim() && movies.length === 0 && (
+        <View style={styles.noResults}>
+          <AppText variant="heading">No encontramos resultados</AppText>
+          <AppText color="mutedText">
+            Probá con otro nombre de película.
+          </AppText>
+        </View>
+      )}
     </View>
   );
 }
@@ -77,5 +89,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: spacing.sm,
     backgroundColor: colors.background,
+  },
+  noResults: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
   },
 });
